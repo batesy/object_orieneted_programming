@@ -1,21 +1,15 @@
 class Product
   attr_accessor(:name, :price, :quantity, :sales_tax, :import)
-  def initialize(name, price, quantity, import=false)
+  def initialize(name, price, quantity)
     @name = name
     @price = price * 100
     @quantity = quantity
+    @sales_tax = price * 0.1
   end
 
-  def sales_tax
-    @price * 0.1
-  end
-
-  def import_fee
-    if @import == true
-      @price * 0.5
-    end
-  end
-
+  # def sales_tax
+  #   @price * 0.1
+  # end
 
   # attr_accessor writes these two methods for you
   # def name
@@ -45,10 +39,10 @@ class ImportedExempt < ExemptProduct
   end
 end
 
-def calculate(*products)
+def calculate(*items)
   total = 0
   total_tax = 0
-  products.each {|x| 
+  items.each {|x| 
     puts "#{x.quantity} #{x.name} : #{((x.price + x.sales_tax)/100).round(2)}"
     total_tax += x.sales_tax
     total += x.price
